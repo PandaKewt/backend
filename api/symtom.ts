@@ -1,8 +1,8 @@
 import path from 'path';
 import { Router } from 'express';
 import { body, validationResult } from 'express-validator';
-import { debugSymtom } from '../debug';
 import { PythonShell } from 'python-shell';
+import { debugSymtom } from '../debug';
 import { isAuthenticated } from '../middleware/firebase';
 
 const router: Router = Router();
@@ -156,9 +156,7 @@ router.post(
     body('symtom')
         .isArray({ min: 1 })
         .custom((value) => {
-            const notFound = value.some(
-                (value: string) => !symtom.includes(value)
-            );
+            const notFound = value.some((value: string) => !symtom.includes(value));
             if (notFound) throw Error('Symtom not found');
             return true;
         }),
@@ -180,9 +178,10 @@ router.post(
                 res.status(500).send(err);
             } else {
                 debugSymtom('AI Program success');
-                res.status(200).send(data[0]);
+                // JSON.parse(data);
+                debugSymtom(data[0]);
+                res.status(200).send(JSON.parse(data[0]));
             }
-            debugSymtom(data[0]);
         } else {
             debugSymtom('Symtom not found');
             res.status(400).send(error);

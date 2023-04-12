@@ -1,5 +1,5 @@
 import express from 'express';
-import { disableXPoweredBy, corsAllowAll } from './middleware/express';
+import { disableXPoweredBy } from './middleware/express';
 import cors from 'cors';
 // Import router
 import api from './api';
@@ -16,7 +16,7 @@ const corsOption: cors.CorsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('*', cors(corsOption));
-// disableXPoweredBy(app);
+disableXPoweredBy(app);
 
 app.use('/api', api);
 

@@ -4,7 +4,7 @@ import numpy as np
 import joblib
 import sys
 
-data = [
+diseases = [
     "(vertigo) Paroymsal Positional Vertigo",
     "AIDS",
     "Acne",
@@ -45,7 +45,7 @@ data = [
     "Typhoid",
     "Urinary tract infection",
     "Varicose veins",
-    "hepatitis A",
+    "Hepatitis A",
 ]
 
 
@@ -64,4 +64,8 @@ def run():
 
 init()
 ans = run()[0]
-print(data[ans.index(max(ans))])
+print("[", end="")
+for percent, disease in zip(ans, diseases):
+    percent = percent * 100
+    print(f'{"{"} "name": "{disease}", "percent": {percent:.2f} {"}"}', end=",")
+print(f'{"{"}"sum": {sum(ans):.2f}{"}"}]')
